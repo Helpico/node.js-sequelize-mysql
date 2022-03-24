@@ -20,6 +20,7 @@ module.exports = {
       email: {
         type: DataTypes.STRING,
         allowNull: false,
+        unique: true              // new
       },
       role: {
         type: DataTypes.STRING,

@@ -1,9 +1,19 @@
 const express = require("express");
 const app = express();
-const { sequelize, User, Post, Category, Product } = require("./models");
+const userRouter = require("./routes/user.routes"); 
+const postRouter = require("./routes/post.routes");
+const { sequelize } = require("./models");
 
 app.use(express.json());
 
+app.use("/api", userRouter);
+app.use("/api", postRouter);
+
+
+
+
+
+/* 
 // Create a user with name, email and role values
 app.post("/user", async(req, res) => {
  const {name, email, role} = req.body;
@@ -17,33 +27,6 @@ app.post("/user", async(req, res) => {
   return res.status(400).json(err);
  }
 })
-
-// Get all the users with its posts
-app.get("/users", async(req, res) => {
- try {
-  const users = await User.findAll({ include: ['posts'] });
-  return res.status(200).json(users);
- } catch(err) {
-  return res.status(500).json({error: "Something went wrong!"})
- }
-});
-
-// Find a user by his :uuid with all of its posts
-app.get("/user/:uuid", async(req, res) => {
- const uuid = req.params.uuid;
- 
- try {
-  const user = await User.findOne({ 
-    where: { uuid },
-    include: 'posts'
-  });
-  return res.json(user);
- } catch (err) {
-  return res.status(500).json({error: "Something went wrong"});
- }
-})
-
-
 
 // Create a post of a user
 app.post("/posts", async(req, res) => {
@@ -94,25 +77,7 @@ app.delete("/user/:uuid", async(req, res) => {
  })
  
 
-// Update a user
-app.put("/user/:uuid", async(req, res) => {
-  const uuid = req.params.uuid;
-  const { name, email, role } = req.body;
-  
-  try {
-   const user = await User.findOne({ where: { uuid } });
-   
-   user.name = name || user.name;
-   user.email = email || user.email;
-   user.role = role || user.role;
-
-   await user.save();
-
-   return res.json(user);
-  } catch (err) {
-   return res.status(500).json({error: "Something went wrong"});
-  }
- })
+ */
 
 
 
